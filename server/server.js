@@ -24,6 +24,15 @@ app.post('/todos', (req, res) => {
     });
 });
 
+// Get request
+app.get('/todos', (req, res) => {
+    Todo.find().then((todos) => {
+        res.send({ todos });
+    }, (e) => {
+        res.status(400).send(err);
+    });
+});
+
 // Localhost configuration Note heroku configure later.
 app.listen(3000, () => {
     console.log('Server started on port 3000');
