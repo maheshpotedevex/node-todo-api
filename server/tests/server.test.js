@@ -5,17 +5,23 @@ const request = require('supertest');
 const { app } = require('./../server');
 const { Todo } = require('./../models/todo');
 
+// Create an array object of dummy todos
+var todos = [{ text: "First test todo" }, { text: "Second test todo" }];
+
 // life cycle method. This function is run before a test case. 
 // database become empty before every request
 beforeEach((done) => {
-    Todo.deleteOne({}).then(() => done()); // Implicit invoke done fun.
+    Todo.deleteMany({}).then(() => {
+        return Todo.insertMany(todos);
+    }).then(() => done()); // Implicit invoke done fun.
+
 });
 
-
-// make test-cases
 describe('POST /todos', () => {
+
+    // make test-cases describe('POST /todos', () => {
     it('Should create a new todo', (done) => {
-        var text = "Hello world";
+        var text = "First test todo";
 
         //Make request passing to app , to make request on.
         request(app)
@@ -34,7 +40,7 @@ describe('POST /todos', () => {
             });
 
         // Fetch everyhing that collection
-        Todo.find().then((todos) => {
+        Todo.find({ text }).then((todos) => {
             // console.log(todos.length);
             //console.log(toBe(1));
             expect(todos.length).toBe(1);
@@ -54,10 +60,23 @@ describe('POST /todos', () => {
                 }
 
                 Todo.find().then((todos) => {
-                    expect(todos.length).toBe(0);
+                    expect(todos.length).toBe(2);
                     done();
                 }).catch((err) => done(err));
 
             });
+    });
+});
+
+// New describe block
+describe('GET /todos', () => {
+    it('Should get all todos', (done) => {
+        request(app)
+            .get('/todos')
+            .expect(200)
+            .expect((res) => {
+                expect(res.body.todos.length).toBe(2);
+            })
+            .end(done);
     });
 });
