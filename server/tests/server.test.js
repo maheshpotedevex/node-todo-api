@@ -4,9 +4,17 @@ const request = require('supertest');
 // import server app
 const { app } = require('./../server');
 const { Todo } = require('./../models/todo');
-
+const { ObjectID } = require('mongodb');
 // Create an array object of dummy todos
-var todos = [{ text: "First test todo" }, { text: "Second test todo" }];
+var todos = [{
+        _id: new ObjectID(),
+        text: "First test todo"
+    },
+    {
+        _id: new ObjectID(),
+        text: "Second test todo"
+    }
+];
 
 // life cycle method. This function is run before a test case. 
 // database become empty before every request
@@ -77,6 +85,38 @@ describe('GET /todos', () => {
             .expect((res) => {
                 expect(res.body.todos.length).toBe(2);
             })
+            .end(done);
+    });
+});
+
+// For todos/id testing.
+describe('GET /todos/:id', () => {
+    it('It should return todo doc', (done) => {
+        request(app)
+            .get(`/todos/${todos[0]._id.toHexString()}`)
+            .expect(200)
+            .expect((res) => {
+                //assertion
+                expect(res.body.todos.text).toBe(todos[0].text);
+            })
+            .end(done);
+    });
+
+    // When 404
+    it('Should return 404 if todo not found', (done) => {
+        var hexId = new ObjectID().toHexString();
+        //console.log(hexId);
+        request(app)
+            .get(`todos/${hexId}`)
+            .expect(404)
+            .end(done);
+    });
+
+    // General temp ID
+    it('Should return 404 for non-object ids', (done) => {
+        request(app)
+            .get('todos/123abc')
+            .expect(404)
             .end(done);
     });
 });
