@@ -34,4 +34,20 @@ i.e - expect (for assertion)
     - supertest (to test express routes and nodemon)
 
 - mongoose queries:
-  url: mongoosejs.com/docs/queries.html   
+  url: mongoosejs.com/docs/queries.html  
+
+ - Create New heroku application.
+ >  heroku create
+ > https://mighty-basin-16640.herokuapp.com/ 
+ > heroku addons:create mongolab:sandbox 
+ > heroku config
+
+ New: Heroku APP
+ https://shrouded-atoll-24320.herokuapp.com/ | https://git.heroku.com/shrouded-atoll-24320.git
+
+ new:
+ https://whispering-atoll-99458.herokuapp.com/ | https://git.heroku.com/whispering-atoll-99458.git
+
+
+ https://mlab.com/databases/todoapp
+ mongodb://<dbuser>:<dbpassword>@ds121603.mlab.com:21603/todoapp
