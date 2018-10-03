@@ -51,3 +51,12 @@ i.e - expect (for assertion)
 
  https://mlab.com/databases/todoapp
  mongodb://<dbuser>:<dbpassword>@ds121603.mlab.com:21603/todoapp
+
+ > git push heroku master
+ > heroku logs
+ > Started up at the port 41432 
+ > https://mighty-basin-16640.herokuapp.com/ deployed to Heroku
+
+
+
+ https://mlab.com/databases/todoapp
