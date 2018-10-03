@@ -34,4 +34,4 @@ i.e - expect (for assertion)
     - supertest (to test express routes and nodemon)
 
 - mongoose queries:
-  url: mongoosejs.com/docs/queries.html    
+  url: mongoosejs.com/docs/queries.html   

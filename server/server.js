@@ -1,6 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 
+const { ObjectID } = require('mongodb');
 var { mongoose } = require('./db/mongoose');
 var { Todo } = require('./models/todo');
 var { User } = require('./models/user');
@@ -31,6 +32,28 @@ app.get('/todos', (req, res) => {
     }, (e) => {
         res.status(400).send(err);
     });
+});
+
+// GET /todos/id
+
+app.get('/todos/:id', (req, res) => {
+    var id = req.params.id;
+    //res.send(req.params);
+    // Validate ID using isValid
+    if (!ObjectID.isValid(id)) {
+        return res.status(404).send();
+    }
+
+    Todo.findById(id).then((todos) => {
+        if (!todos) {
+            return res.status(404).send();
+        }
+        // Success
+        res.send({ todos });
+    }).catch((e) => {
+        res.status(404).send();
+    });
+
 });
 
 // Localhost configuration Note heroku configure later.
