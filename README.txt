@@ -60,3 +60,9 @@ i.e - expect (for assertion)
 
 
  https://mlab.com/databases/todoapp
+
+Check git heroku status smd:
+> git remote -v
+
+ Remove git heroku url by remote
+ >git remote rm heroku
