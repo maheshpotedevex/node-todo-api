@@ -66,3 +66,19 @@ Check git heroku status smd:
 
  Remove git heroku url by remote
  >git remote rm heroku
+
+ ------------------------------------------------------------
+ DEPLOY TO HEROKU PROCESS
+
+ 1. Check .git heroku status: $ git remote -v
+ 2. Remove .git heroku remote url: $ git remote rm heroku
+ 3. Create Heroku app : $ heroku create
+ 4. Addons add free sandbox mongodb from MLAB: $ heroku addons:create mongolab:sandbox
+ 5. If not work then create account on https://mlab.com and choose free account.
+ 6. After getting MONGOLAB_URI (MONGOLAB_URI: mongodb://username:password@ds121593.mlab.com:21593/todoapp)
+ 7. check git status: $ git status
+ 8. Commit : $ git commit -am 'deploy heroku app'
+ 9. push : $ git push
+ 10. Push for heroku: $ git push heroku master
+    - remote:  https://floating-thicket-38635.herokuapp.com/ deployed to Heroku
+ 11. Check logs : $ heroku logs.   
