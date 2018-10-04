@@ -8,6 +8,8 @@ var { User } = require('./models/user');
 
 var app = express();
 const port = process.env.PORT || 3000;
+//const port = 3000;
+
 // Tirdparty middleware
 app.use(bodyParser.json());
 
@@ -55,6 +57,24 @@ app.get('/todos/:id', (req, res) => {
     });
 
 });
+
+// DElete query
+app.delete('/todos/:id', (req, res) => {
+    var id = req.params.id;
+    if (!ObjectID.isValid(id)) {
+        return res.status(404).send();
+    }
+    Todo.findByIdAndDelete(id).then((todo) => {
+        if (!todo) {
+            return res.status(404).send();
+        }
+        res.send({ todo });
+    }).catch((er) => {
+        res.status(404).send(err);
+    });
+
+});
+
 
 // Localhost configuration Note heroku configure later.
 app.listen(port, () => {

@@ -108,7 +108,7 @@ describe('GET /todos/:id', () => {
         //console.log(hexId);
         request(app)
             .get(`todos/${hexId}`)
-            .expect(404)
+            .expect(403)
             .end(done);
     });
 
@@ -116,7 +116,7 @@ describe('GET /todos/:id', () => {
     it('Should return 404 for non-object ids', (done) => {
         request(app)
             .get('todos/123abc')
-            .expect(404)
+            .expect(403)
             .end(done);
     });
 });
